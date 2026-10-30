@@ -1,0 +1,65 @@
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id           Int        @id @default(autoincrement())
+  username     String     @unique
+  email        String     @unique
+  passwordHash String
+  createdAt    DateTime   @default(now())
+  reactions    Reaction[]
+  reviews      Review[]
+}
+
+model Season {
+  id       Int       @id @default(autoincrement())
+  number   Int       @unique
+  title    String
+  episodes Episode[]
+}
+
+model Episode {
+  id          Int        @id @default(autoincrement())
+  externalId  String?    @unique
+  seasonId    Int
+  number      Int
+  title       String
+  description String
+  airDate     DateTime
+  season      Season     @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  reactions   Reaction[]
+  reviews     Review[]
+
+  @@unique([seasonId, number])
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  episodeId Int
+  rating    Int
+  comment   String
+  createdAt DateTime @default(now())
+  episode   Episode  @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, episodeId])
+}
+
+model Reaction {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  episodeId Int
+  type      String
+  episode   Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, episodeId])
+}

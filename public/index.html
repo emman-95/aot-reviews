@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AOT Reviews — L'Attaque des Titans</title>
+
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+    <!-- BARRE DE NAVIGATION -->
+    <header class="site-header">
+
+        <a href="/" class="brand">
+            <img
+                src="/images/logo-bataillon.png"
+                alt="Logo du Bataillon d'exploration"
+                class="brand-logo"
+            >
+
+            <span class="brand-text">
+                <strong>AOT REVIEWS</strong>
+                <small>L'ATTAQUE DES TITANS</small>
+            </span>
+        </a>
+
+        <nav>
+            <a href="/" class="active">Accueil</a>
+            <a href="#episodes-section">Épisodes</a>
+            <a href="/login.html">Connexion</a>
+            <a href="/register.html">Inscription</a>
+        </nav>
+
+    </header>
+
+
+    <!-- GRANDE BANNIÈRE -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <p class="hero-eyebrow">
+                PLUS QU'UN ANIME, UNE HISTOIRE QUI MARQUE
+            </p>
+
+            <h1>
+                L'ATTAQUE<br>
+                DES TITANS
+            </h1>
+
+            <p class="hero-description">
+                Découvre les épisodes, partage ton avis et rejoins
+                la communauté des fans de SNK.
+            </p>
+
+            <a href="#episodes-section" class="hero-button">
+                EXPLORER LES ÉPISODES
+                <span>→</span>
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- LISTE DES ÉPISODES -->
+     
+<div class="season-filter">
+    <label for="filtre-saison">SAISON</label>
+    <select id="filtre-saison">
+        <option value="all">Toutes les saisons</option>
+        <option value="1">Saison 1</option>
+        <option value="2">Saison 2</option>
+        <option value="3">Saison 3</option>
+        <option value="4">Saison 4</option>
+    </select>
+</div>
+
+    <main id="episodes-section">
+
+        <div class="section-heading">
+
+            <div class="section-title">
+                <img
+                    src="/images/logo-bataillon.png"
+                    alt=""
+                    class="section-logo"
+                >
+
+                <div>
+                    <h2>LES ÉPISODES</h2>
+                    <p>REVIEWS · NOTES · COMMUNAUTÉ</p>
+                </div>
+            </div>
+
+            <div class="section-line"></div>
+
+            <span class="section-caption">
+                CHAQUE ÉPISODE COMPTE
+            </span>
+
+        </div>
+
+
+        <div id="episodes" class="episodes">
+            <p class="loading-message">
+                Chargement des épisodes...
+            </p>
+        </div>
+
+    </main>
+
+
+    <!-- CHARGEMENT DES ÉPISODES -->
+    <script src="/episodes.js"></script>
+
+</body>
+</html>

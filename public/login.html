@@ -1,0 +1,611 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#160d0b">
+<title>Connexion | AOT Reviews</title>
+
+<style>
+:root {
+    --gold: #d5b47a;
+    --red: #842c26;
+    --text: #f2e8d8;
+    --muted: #c0b5a6;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    color: var(--text);
+    font-family: Georgia, "Times New Roman", serif;
+    background: #100b09;
+}
+
+.background {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+        linear-gradient(90deg,
+            rgba(8, 7, 7, .65),
+            rgba(8, 7, 7, .22) 50%,
+            rgba(8, 7, 7, .48)),
+        linear-gradient(0deg, rgba(8, 7, 7, .7), transparent 65%),
+        url("/images/aot-hero.png") center / cover no-repeat,
+        #241512;
+    transform: scale(1.04);
+    animation: reveal 1.5s ease-out forwards;
+}
+
+.shade {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    box-shadow: inset 0 0 150px #000b;
+}
+
+.embers {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.ember {
+    position: absolute;
+    bottom: -15px;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #ff9c45;
+    box-shadow: 0 0 12px 3px #e75c2a77;
+    animation: rise 8s linear infinite;
+}
+
+.ember:nth-child(1) { left: 8%; animation-delay: 0s; }
+.ember:nth-child(2) { left: 19%; animation-delay: 3s; }
+.ember:nth-child(3) { left: 35%; animation-delay: 1s; }
+.ember:nth-child(4) { left: 57%; animation-delay: 4s; }
+.ember:nth-child(5) { left: 73%; animation-delay: 2s; }
+.ember:nth-child(6) { left: 91%; animation-delay: 5s; }
+
+header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 25px 5%;
+}
+
+.brand {
+    color: var(--text);
+    text-decoration: none;
+}
+
+.brand strong {
+    display: block;
+    font-size: clamp(23px, 3vw, 37px);
+    letter-spacing: 3px;
+}
+
+.brand small {
+    display: block;
+    margin-top: 6px;
+    color: var(--muted);
+    font: 10px Arial, sans-serif;
+    letter-spacing: 3px;
+}
+
+.sound-button {
+    padding: 11px 15px;
+    border: 1px solid #d5b47a77;
+    border-radius: 2px;
+    background: #100b09c9;
+    color: var(--text);
+    cursor: pointer;
+    font: 12px Arial, sans-serif;
+}
+
+.sound-button:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+main {
+    position: relative;
+    z-index: 1;
+    min-height: calc(100vh - 100px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px 18px 65px;
+}
+
+.card {
+    width: 100%;
+    max-width: 490px;
+    padding: 38px;
+    position: relative;
+    overflow: hidden;
+    background:
+        linear-gradient(135deg, #100d0dec, #17100eee);
+    border: 1px solid #b99a6977;
+    box-shadow: 0 25px 90px #0009;
+    animation: enter 1s .2s both;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), var(--red), transparent);
+}
+
+.emblem {
+    text-align: center;
+    font-size: 42px;
+    color: var(--gold);
+    margin-bottom: 12px;
+    text-shadow: 0 0 25px #d5b47a33;
+}
+
+.eyebrow {
+    color: var(--gold);
+    text-align: center;
+    font: 10px Arial, sans-serif;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+h1 {
+    text-align: center;
+    font-size: clamp(30px, 5vw, 40px);
+    font-weight: normal;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+}
+
+.intro {
+    color: #d0c4b7;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    color: #ded0bd;
+    font: 11px Arial, sans-serif;
+    letter-spacing: 1.5px;
+    margin-bottom: 9px;
+}
+
+input {
+    display: block;
+    width: 100%;
+    min-height: 52px;
+    padding: 14px;
+    border: 1px solid #756453;
+    border-radius: 2px;
+    outline: none;
+    background: #080a0be0;
+    color: white;
+    font: 14px Arial, sans-serif;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+input::placeholder {
+    color: #968d83;
+}
+
+input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 2px #d5b47a20;
+}
+
+.password-wrap {
+    position: relative;
+}
+
+.password-wrap input {
+    padding-right: 85px;
+}
+
+.show-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: var(--gold);
+    font: 12px Arial, sans-serif;
+    cursor: pointer;
+}
+
+.submit {
+    width: 100%;
+    min-height: 56px;
+    margin-top: 8px;
+    border: 1px solid #d9b77c;
+    background: linear-gradient(110deg, #6e201d, #9a3930, #6e201d);
+    background-size: 200% 100%;
+    color: #fff1dc;
+    font: bold 13px Arial, sans-serif;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: background-position .3s, transform .2s;
+}
+
+.submit:hover {
+    background-position: 100% 0;
+    transform: translateY(-2px);
+}
+
+.submit:disabled {
+    opacity: .65;
+    cursor: wait;
+    transform: none;
+}
+
+#message {
+    display: none;
+    margin-top: 16px;
+    padding: 12px;
+    font: 13px/1.5 Arial, sans-serif;
+    overflow-wrap: anywhere;
+}
+
+#message.error {
+    display: block;
+    color: #ffc4bd;
+    background: #501c1c;
+    border: 1px solid #853c34;
+}
+
+#message.success {
+    display: block;
+    color: #c4efc8;
+    background: #193523;
+    border: 1px solid #386647;
+}
+
+.separator {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #b8a994;
+    font-size: 12px;
+    margin: 26px 0;
+}
+
+.separator::before,
+.separator::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #7a6247;
+}
+
+.account {
+    color: #c8beb1;
+    text-align: center;
+    font: 13px/1.8 Arial, sans-serif;
+}
+
+a.gold {
+    color: #efbd69;
+    text-decoration: none;
+}
+
+a.gold:hover {
+    text-decoration: underline;
+}
+
+.back {
+    display: block;
+    margin-top: 25px;
+    color: #c6b9a8;
+    text-align: center;
+    text-decoration: none;
+    font: 12px Arial, sans-serif;
+}
+
+.back:hover {
+    color: white;
+}
+
+.quote {
+    position: fixed;
+    right: 4%;
+    bottom: 22px;
+    color: #eee0cb;
+    text-align: right;
+    font-style: italic;
+    font-size: 12px;
+    text-shadow: 0 2px 8px #000;
+}
+
+.quote span {
+    display: block;
+    margin-top: 5px;
+    color: var(--gold);
+}
+
+@keyframes enter {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes reveal {
+    from { opacity: .4; transform: scale(1.08); }
+    to { opacity: 1; transform: scale(1.04); }
+}
+
+@keyframes rise {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    12% { opacity: .9; }
+    100% { transform: translateY(-110vh) translateX(45px); opacity: 0; }
+}
+
+@media (max-width: 560px) {
+    header { padding: 18px; }
+    .brand strong { font-size: 20px; letter-spacing: 1px; }
+    .brand small { font-size: 8px; letter-spacing: 1px; }
+    .sound-button { padding: 9px; font-size: 11px; }
+    main { padding: 20px 14px 50px; }
+    .card { padding: 28px 22px; }
+    .quote { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="background" aria-hidden="true"></div>
+<div class="shade" aria-hidden="true"></div>
+
+<div class="embers" aria-hidden="true">
+    <span class="ember"></span>
+    <span class="ember"></span>
+    <span class="ember"></span>
+    <span class="ember"></span>
+    <span class="ember"></span>
+    <span class="ember"></span>
+</div>
+
+<header>
+    <a class="brand" href="/">
+        <strong>⚔ AOT REVIEWS</strong>
+        <small>NOTER · COMMENTER · PARTAGER</small>
+    </a>
+
+    <button class="sound-button" id="soundToggle" type="button">
+        🔇 Son : désactivé
+    </button>
+</header>
+
+<main>
+    <section class="card">
+        <div class="emblem" aria-hidden="true">⚔</div>
+        <p class="eyebrow">Bataillon d'exploration</p>
+        <h1>Connexion</h1>
+
+        <p class="intro">
+            L'humanité continue de se battre.<br>
+            Rejoins la communauté AOT Reviews et partage tes avis.
+        </p>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">ADRESSE E-MAIL</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="nom@exemple.com"
+                    autocomplete="email"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">MOT DE PASSE</label>
+                <div class="password-wrap">
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Ton mot de passe"
+                        autocomplete="current-password"
+                        required
+                    >
+                    <button class="show-password" id="showPassword" type="button">
+                        Afficher
+                    </button>
+                </div>
+            </div>
+
+            <button class="submit" id="loginButton" type="submit">
+                SE CONNECTER →
+            </button>
+        </form>
+
+        <p id="message" role="status" aria-live="polite"></p>
+
+        <div class="separator">OU</div>
+
+        <p class="account">
+            Tu n'as pas encore de compte ?
+            <a class="gold" href="/register.html">Créer un compte</a>
+        </p>
+
+        <a class="back" href="/">← Retour aux épisodes</a>
+    </section>
+</main>
+
+<p class="quote">
+    « Même si nous mourons, nous continuerons à nous battre. »
+    <span>— Devise de l'humanité</span>
+</p>
+
+<script>
+const form = document.getElementById("loginForm");
+const message = document.getElementById("message");
+const loginButton = document.getElementById("loginButton");
+const password = document.getElementById("password");
+const showPassword = document.getElementById("showPassword");
+const soundToggle = document.getElementById("soundToggle");
+
+let soundEnabled = false;
+let audioContext = null;
+
+function playTone(frequency, duration, volume = 0.025, type = "sine") {
+    if (!soundEnabled) return;
+
+    try {
+        if (!audioContext) {
+            audioContext = new (
+                window.AudioContext || window.webkitAudioContext
+            )();
+        }
+
+        if (audioContext.state === "suspended") {
+            audioContext.resume();
+        }
+
+        const oscillator = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+
+        oscillator.type = type;
+        oscillator.frequency.value = frequency;
+        gain.gain.setValueAtTime(0.0001, audioContext.currentTime);
+        gain.gain.exponentialRampToValueAtTime(
+            volume, audioContext.currentTime + 0.02
+        );
+        gain.gain.exponentialRampToValueAtTime(
+            0.0001, audioContext.currentTime + duration
+        );
+
+        oscillator.connect(gain);
+        gain.connect(audioContext.destination);
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + duration + 0.03);
+    } catch (error) {
+        console.warn("Audio indisponible :", error);
+    }
+}
+
+soundToggle.addEventListener("click", async () => {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+
+    if (!AudioContextClass) {
+        soundToggle.textContent = "Audio indisponible";
+        return;
+    }
+
+    if (!audioContext) audioContext = new AudioContextClass();
+
+    soundEnabled = !soundEnabled;
+
+    if (soundEnabled && audioContext.state === "suspended") {
+        await audioContext.resume();
+    }
+
+    soundToggle.textContent = soundEnabled
+        ? "🔊 Son : activé"
+        : "🔇 Son : désactivé";
+
+    if (soundEnabled) {
+        playTone(330, 0.12);
+        setTimeout(() => playTone(440, 0.18), 110);
+    }
+});
+
+showPassword.addEventListener("click", () => {
+    const reveal = password.type === "password";
+    password.type = reveal ? "text" : "password";
+    showPassword.textContent = reveal ? "Masquer" : "Afficher";
+    playTone(440, 0.07, 0.015);
+});
+
+form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    message.textContent = "";
+    message.className = "";
+
+    const email = document.getElementById("email").value.trim();
+    const passwordValue = password.value;
+
+    loginButton.disabled = true;
+    loginButton.textContent = "CONNEXION EN COURS...";
+
+    try {
+        const response = await fetch("/api/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password: passwordValue })
+        });
+
+        let data = {};
+        try {
+            data = await response.json();
+        } catch {}
+
+        if (!response.ok) {
+            throw new Error(data.error || "Identifiants incorrects.");
+        }
+
+        message.textContent = data.message || "Connexion réussie !";
+        message.className = "success";
+
+        playTone(440, 0.12);
+        setTimeout(() => playTone(554, 0.15), 120);
+        setTimeout(() => playTone(659, 0.2), 240);
+
+        loginButton.textContent = "BIENVENUE !";
+
+        setTimeout(() => {
+            window.location.href = "/";
+        }, 900);
+    } catch (error) {
+        message.textContent = error.message || "Une erreur est survenue.";
+        message.className = "error";
+        playTone(170, 0.18, 0.025, "triangle");
+
+        loginButton.disabled = false;
+        loginButton.textContent = "SE CONNECTER →";
+    }
+});
+</script>
+</body>
+</html>
